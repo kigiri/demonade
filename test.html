@@ -1,16 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dom.js Tests</title>
+  <title>Demonade Tests</title>
+  <meta charset="utf-8">
 </head>
 <body>
   <div id="root"></div>
 <script type="module">
-import { h } from './index.js'
+import {
+  createElement,
+// } from '//unpkg.com/demonade' // for remote testing
+} from './index.js' // for local testing
+
+// HELPERS
+const has = (a, b) => Object.entries(b).every(([k, v]) => a[k] === v)
+
 
 // createElement
 // createElement - create div
+const divA = createElement('div')
+console.assert(has(divA, { tagName: 'DIV' }), {
+  elem: divA,
+  message: 'tagName should be `DIV`',
+})
+
 // createElement - create div with props
+const simpleProps = { id: 'div-b', className: 'a b'}
+const divB = createElement('div', simpleProps)
+console.assert(has(divB, { tagName: 'DIV', ...simpleProps }), {
+  elem: divB,
+  message: 'should contains simple props',
+  props: simpleProps,
+})
+
 // createElement - create div with nested props (style)
 // createElement - create div with child
 // createElement - create div with children
